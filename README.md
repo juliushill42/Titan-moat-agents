@@ -1,54 +1,43 @@
-# agents.titanuniversalai.com
+# Prompt Optimizer
 
-25-agent sovereign fleet for Titan Universal AI LLC. Owner: Julius Cameron Hill (JU).
+## Mission
+A/B test and evolve system prompts across agents using measured task success, not guesswork.
 
-## Stack
-Go, Rust, Zig, Python, C++, TypeScript/Tailwind (dashboard), Tokio, Postgres, Lua (where UGC-adjacent).
-Sovereign-first: local GGUF inference, zero mandatory external API dependency, Pedersen/Ristretto255 ZK provenance chain.
+## Real-world Bottleneck
+Prompt quality is tuned by feel, not evidence.
 
-## Agents (25)
-- **workflow-discovery** — Go (orchestrator) + Python (pattern mining, sklearn/HMM)
-- **process-mining** — Python (PM4Py-style engine, custom) + Go (API)
-- **data-quality** — Go (pipeline) + Python (validation rules/statistics)
-- **api-builder** — Go
-- **semantic-search** — Python (embeddings) + Rust (vector index) + Go (API)
-- **prompt-optimizer** — Python
-- **tool-selector** — Go
-- **cost-optimizer** — Go (control loop) + Python (forecasting)
-- **latency-optimizer** — Rust (hot path) + Go (control plane)
-- **memory-compression** — Rust + Zig (WASM scoring kernel)
-- **coordinator** — Go + Rust/Tokio
-- **simulation** — Rust + C++ (physics/numerics core)
-- **scenario-planning** — Python
-- **mentor** — Python
-- **documentation** — Go (extraction) + Python (generation)
-- **incident-commander** — Go
-- **meeting-intelligence** — Python
-- **procurement** — Go
-- **grant-writer** — Python
-- **asset-inventory** — Go
-- **risk-intelligence** — Python + Go
-- **governance** — Go
-- **digital-twin** — Rust + C++
-- **experiment-runner** — Python + Go
-- **innovation-scout** — Python
+## Target Users
+Titan Universal AI internal agent fleet; JU (Julius Cameron Hill) as sole operator/approver.
 
-## Shared
-- **planner** — Go
-- **router** — Go
-- **memory** — Rust + Postgres
-- **prompts** — Python
-- **evaluation** — Python
-- **telemetry** — Go
-- **policies** — Go
-- **schemas** — Protobuf + Go codegen
-- **mcp** — Go
-- **utilities** — Go
+## Inputs
+Event streams, task graph goals, MCP tool results, prior agent memory.
 
-## Bootstrap
-```
-bash bootstrap.sh
-```
+## Outputs
+Structured results written to shared/memory (Postgres), telemetry events, and downstream task graph updates.
 
-## License
-Titan Proprietary License 1.0 — see LICENSE.
+## Decision Process
+Pull eval scores per prompt variant -> run bandit/genetic search -> promote winning variant -> log lineage.
+
+## Planning Strategy
+Goal decomposition against shared/planner; no agent plans in isolation — every plan node registers with the Go coordinator DAG.
+
+## Memory Strategy
+Short-term: in-process context. Long-term: Postgres via shared/memory, compressed by the memory-compression agent, hash-chained (Pedersen/Ristretto255) for provenance.
+
+## MCP Integrations
+Registered through shared/mcp; tool selection delegated to tool-selector agent.
+
+## External Tools
+None by default — sovereign-first. External calls only via explicit MCP grant.
+
+## Evaluation Metrics
+Task success rate, latency (p50/p99), token/compute cost, human override rate.
+
+## Security Model
+BSL 1.1 licensing, patent poison-pill compliance enforced by governance agent. No training data leaves Titan infra.
+
+## Failure Recovery
+Self-heal kill/respawn pattern (TAAG-style); failed tasks requeue with backoff; incident-commander escalates on repeat failure.
+
+## Observability
+Structured telemetry to shared/telemetry; traced spans for latency-optimizer consumption.
